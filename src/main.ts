@@ -1,5 +1,3 @@
-import "./style.css";
-
 type calcActions = "-" | "+" | "/" | "*";
 
 let query: (string | number)[] = [];
@@ -14,13 +12,11 @@ let operatorPrecedence: Map<string, number> = new Map([
   ["/", 12],
 ]);
 
-const calcStr = "1 + 3 * 5 - 6 * (7 + 5 - 4 * 1) / 4 - 5 * 6 + 3";
-
-const regex = /\d+|[+/*-]/g;
+const calcStr = "(3+4)*(2/(1-5)+6)";
+const regex = /\d+|[+/*()-]/g;
 
 function clearStack(): void {
-  query.push(stack.at(-1) as string);
-  stack.pop();
+  query.push(stack.pop() as string);
 }
 
 function processCalcString(str: string): void {
@@ -28,24 +24,31 @@ function processCalcString(str: string): void {
   for (let i = 0; i < arr.length; i++) {
     if (Number(arr[i])) {
       query.push(+arr[i]);
+      continue
+
     }
 
     if (/[*/+-]/.test(arr[i])) {
       if (stack.length === 0 || stack.at(-1) === "(") {
         stack.push(arr[i]);
+        continue
       } else if (
         (operatorPrecedence.get(arr[i]) as unknown as number) >
         (operatorPrecedence.get(stack.at(-1) as string) as unknown as number)
       ) {
         stack.push(arr[i]);
+        continue
+
       } else {
         clearStack();
         i--;
+        continue
       }
     }
 
     if (arr[i] === "(") {
       stack.push(arr[i]);
+      continue
     }
 
     if (arr[i] === ")") {
@@ -53,6 +56,7 @@ function processCalcString(str: string): void {
         clearStack();
       }
       stack.pop();
+      continue
     }
   }
   query = query.concat(stack.reverse());
@@ -67,7 +71,6 @@ function calcString(arr: (string | number)[]): number {
     if (Number(arr[i])) {
       calcStack.push(arr[i] as number);
     } else {
-      console.log(i + " " + arr[i] + " " + calcStack);
       answ = calcAction(
         arr[i] as calcActions,
         calcStack.at(-1) as number,
@@ -82,10 +85,6 @@ function calcString(arr: (string | number)[]): number {
 }
 
 calcString(query);
-
-console.log(query);
-console.log(calcStack);
-//56*29-+.
 
 function calcAction(action: calcActions, num_1: number, num_2: number): number {
   switch (action) {
