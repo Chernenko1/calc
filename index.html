@@ -3,11 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="wrapper">
+      <div class="container">
+      <div>
+        <form>
+          <input type="text" placeholder="0"/>
+        </form>
+        <div>
+          <p>=</p>
+          <p></p>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="btn btn-black">CE</button>
+        <button class="btn btn-black">C</button>
+        <button class="btn btn-black">%</button>
+        <button class="btn btn-purple">/</button>
+        <button class="btn btn-black">7</button>
+        <button class="btn btn-black">8</button>
+        <button class="btn btn-black">9</button>
+        <button class="btn btn-purple">*</button>
+        <button class="btn btn-black">4</button>
+        <button class="btn btn-black">5</button>
+        <button class="btn btn-black">6</button>
+        <button class="btn btn-purple">-</button>
+        <button class="btn btn-black">1</button>
+        <button class="btn btn-black">2</button>
+        <button class="btn btn-black">3</button>
+        <button class="btn btn-purple">+</button>
+        <button class="btn btn-black">()</button>
+        <button class="btn btn-black">0</button>
+        <button class="btn btn-black">.</button>
+        <button class="btn btn-purple">=</button>
+
+      </div>
+    </div>
+  </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
