@@ -2,7 +2,16 @@
   font-family: 'Rubik';
 }
 
+p {
+  margin: 0;
+}
+
+body {
+  background-color: rgb(129,126,205);
+}
+
 .wrapper {
+  box-sizing: border-box;
   position: absolute;
   margin-inline: auto;
   inset-inline: 0;
@@ -11,7 +20,12 @@
   max-width: 356px;
   max-height: 566px;
   border-radius: 35px;
-  box-shadow:-1px 0px 5px 2px rgba(85, 85, 85, 0.541);
+  /* box-shadow: 1px 0px 10px 2px rgba(51, 51, 51, 0.692); */
+  box-shadow: 0px 10px 10px 1.6px rgba(36, 36, 36, 0.205),
+               -1px -2px 5px rgba(48, 48, 48, 0.87),
+               1px 0px 1px rgba(27, 27, 27, 0.705),
+              inset 0px -1px 4px 1px rgba(3, 3, 3, 0.911),
+              inset 0px 1px 70px rgba(102, 102, 102, 0.425);
   background-color: #2D2A37;
 }
 
@@ -20,7 +34,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 54px;
+  padding-top: 34px;
   padding-bottom: 32px;
 }
 
@@ -60,3 +74,32 @@
   background: #462878;
   color: white
 }
+
+.input {
+  background: none;
+  border: none;
+  color: rgb(189, 189, 189);
+  font-size: 24px;
+  text-align: right;
+  letter-spacing: 5px;
+  outline: none;
+}
+
+
+.answer-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 5px 30px 5px;
+}
+
+.answer-field .answer-sign-equally {
+  color: rgb(189, 189, 189);
+  font-size: 30px;
+}
+
+.answer-field .answer-num {
+  color: white;
+  font-size: 40px;
+} 
