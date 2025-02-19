@@ -103,7 +103,8 @@ function calcString(arr: (string | number)[]): number {
   }
   return answ;
 }
-
+processCalcString()
+// console.log(calcString())
 
 function calcAction(action: calcActions, num_1: number, num_2: number): number {
   switch (action) {
