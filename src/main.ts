@@ -1,4 +1,5 @@
 type calcActions = "-" | "+" | "/" | "*";
+type inputActions = 'CE' | 'C';
 
 let query: (string | number)[] = [];
 
@@ -81,31 +82,28 @@ function processCalcString(str: string): void {
   // query = query.concat(stack.reverse());
 }
 
-processCalcString(calcStr);
-
 function calcString(arr: (string | number)[]): number {
-  let answ: number;
+  let answ: number = 0;
   for (let i = 0; i < arr.length; i++) {
     console.log(i + " " + calcStack);
     if (Number(arr[i])) {
       calcStack.push(arr[i] as number);
     } else {
-      const [num2, num1] = [calcStack.pop() as number, calcStack.pop() as number];
-      calcStack.push(calcAction(arr[i] as calcActions, num1, num2));
-      // answ = calcAction(
-      //   arr[i] as calcActions,
-      //   calcStack.at(-1) as number,
-      //   calcStack.at(-2) as number
-      // );
-      // calcStack.pop();
-      // calcStack.pop();
-      // calcStack.push(answ);
+      // const [num2, num1] = [calcStack.pop() as number, calcStack.pop() as number];
+      // calcStack.push(calcAction(arr[i] as calcActions, num1, num2));
+      answ = calcAction(
+        arr[i] as calcActions,
+        calcStack.at(-1) as number,
+        calcStack.at(-2) as number
+      );
+      calcStack.pop();
+      calcStack.pop();
+      calcStack.push(answ);
     }
   }
-  return 0;
+  return answ;
 }
 
-calcString(query);
 
 function calcAction(action: calcActions, num_1: number, num_2: number): number {
   switch (action) {
@@ -121,3 +119,34 @@ function calcAction(action: calcActions, num_1: number, num_2: number): number {
       throw new Error("Invalid action");
   }
 }
+
+
+var input = document.querySelector('.input') as HTMLInputElement
+var buttons = document.querySelectorAll('.btn') as NodeListOf<HTMLButtonElement>
+var answer = document.querySelector('.answer-num') as HTMLElement
+
+function changeInput (str:  string): void {
+  input.value += str 
+}
+
+function buttonClick (value: string): void {
+  switch (value) {
+    case 'CE': {
+      input.value = ''
+      answer.innerHTML = ''
+      return
+    } 
+    case "C": {
+      input.value = input.value.slice(0,-1)
+      return
+    } 
+    default:
+      break;
+  }
+  changeInput(value)
+}
+
+for (let btn of buttons) {
+  btn.addEventListener('click', () => buttonClick(btn.value))
+}
+
