@@ -13,15 +13,22 @@ const operatorPrecedence: { [key: string]: number } = {
   "/": 12
 }
 
-const calcStr = "(3+4)*(2/(1-5)+6)";
+// const calcStr = "(3+4)*(2/(1-5)+6)";
 const regex = /\d+|[+/*()-]/g;
 
 function clearStack(): void {
   query.push(stack.pop() as string);
 }
 
-function processCalcString(str: string): void {
+function processCalcString(str: string): string {
+  query = []
+  calcStack = []
+  stack = []
   let arr: string[] = str.match(regex) as string[];
+
+  if (arr.length <= 2 ) {
+    return arr[0]
+  }
 
   for (let i = 0; i < arr.length; i++) {
     if (Number(arr[i])) {
@@ -47,9 +54,9 @@ function processCalcString(str: string): void {
     }
   }
   query.push(...stack.reverse());
-
+  
   //   if (/[*/+-]/.test(arr[i])) {
-  //     if (stack.length === 0 || stack.at(-1) === "(") {
+    //     if (stack.length === 0 || stack.at(-1) === "(") {
   //       stack.push(arr[i]);
   //       continue
   //     } else if (
@@ -80,12 +87,13 @@ function processCalcString(str: string): void {
   //   }
   // }
   // query = query.concat(stack.reverse());
+  return String(calcString(query))
 }
 
 function calcString(arr: (string | number)[]): number {
   let answ: number = 0;
   for (let i = 0; i < arr.length; i++) {
-    console.log(i + " " + calcStack);
+    // console.log(i + " " + calcStack);
     if (Number(arr[i])) {
       calcStack.push(arr[i] as number);
     } else {
@@ -103,8 +111,7 @@ function calcString(arr: (string | number)[]): number {
   }
   return answ;
 }
-processCalcString()
-// console.log(calcString())
+// processCalcString(calcStr)
 
 function calcAction(action: calcActions, num_1: number, num_2: number): number {
   switch (action) {
@@ -139,15 +146,19 @@ function buttonClick (value: string): void {
     } 
     case "C": {
       input.value = input.value.slice(0,-1)
+      answer.innerHTML = String(processCalcString(input.value))
       return
     } 
     default:
+      changeInput(value)
+      answer.innerHTML = String(processCalcString(input.value))
       break;
-  }
-  changeInput(value)
+    }
 }
+
 
 for (let btn of buttons) {
   btn.addEventListener('click', () => buttonClick(btn.value))
 }
 
+input.addEventListener('input', (e: InputEvent) => {answer.innerHTML = processCalcString(e.target.value)})
